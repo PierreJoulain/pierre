@@ -14,7 +14,7 @@
                 <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$post->title }}</h2>
                         <span class="text-sm text-gray-500">{{$post->created_at->diffForHumans()}}</span>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Le mec qui a créé ces postes a un pète au casque, mais dragon ball cest le feu</p>
+                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{$post->content}}</p>
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-4">
                             <img class="w-7 h-7 rounded-full" src="https://image.jeuxvideo.com/medias-sm/150038/1500383584-9689-capture-d-ecran.jpg" alt="Pierre Joulain avatar" />
