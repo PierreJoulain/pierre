@@ -12,7 +12,7 @@ class PostController extends Controller
     {
 
         $posts = Post::all();
-        $video = Video::find(1);
+
 
         return view('articles', [
             'posts' => $posts
