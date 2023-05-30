@@ -53,6 +53,7 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->route("posts.show",$post->id);
+
     }
 
     public function register(){
