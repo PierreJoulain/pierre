@@ -36,6 +36,10 @@ class PostController extends Controller
 
     }
     public function createComment(Request $request, $id){
+        //validation
+        $request->validate([
+            'content'=>'required'
+        ]);
         $post = Post::findOrFail($id);
         $comment = new Comment();
         $comment->content = $request->get('content');
