@@ -17,6 +17,7 @@ use App\Http\Controllers\PostController;
 Route::get('/',[PostController::class, 'index'])->name('welcome');
 Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
 Route::post('/posts/create',[PostController::class, 'store'])->name('posts.store');
+Route::get('/login',[PostController::class, 'login'])->name('login');
 
 Route::post('posts/{id}/comment',[PostController::class, 'createComment'])->name('posts.comments.store');
 
