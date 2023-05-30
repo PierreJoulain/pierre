@@ -47,13 +47,23 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
-        $post = new Post();
+       /* $post = new Post();
         $post->title = $request->title;
         $post->content = $request->get('content');
         $post->save();
 
-        return redirect()->route("posts.show",$post->id);
+        return redirect()->route("posts.show",$post->id);*/
 
+        //validation
+        $request->validate([
+            'title'=>'required|max:255|min:5|unique:posts',
+            'content'=>'required'
+        ]);
+
+        Post::create([
+            'title'=>$request->title,
+            'content'=>$request->get('content')
+        ]);
     }
 
     public function register(){

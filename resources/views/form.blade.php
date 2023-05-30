@@ -2,6 +2,12 @@
 @section('content')
 <h1>Creer un nv poste</h1>
 
+@if($errors->any())
+    @foreach($errors->all() as $error)
+       <div class="text-red-500">{{$error}}</div>
+    @endforeach
+@endif
+
 <form method="POST" action="{{route('posts.store')}}">
     @csrf
     {{-- <input type="text" name="title">
