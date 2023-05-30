@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
     <label for="about" class="block text-lg font-medium leading-6 text-gray-900">Voici le poste qui vous interesse</label>
     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">{{$post->title}}</label>
     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">{{$post->content}}</label>
@@ -10,7 +13,7 @@
     <form method="POST" action="{{route('posts.comments.store',$post->id)}}">
         @csrf
     <h2>Déposez un commentaire</h2>
-
+        @include('partials.errors')
         <form>
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
