@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+
     public function index()
     {
-
         $posts = Post::all();
-
-
         return view('articles', [
             'posts' => $posts
         ]);
@@ -27,6 +28,7 @@ class PostController extends Controller
     }
 
     public function create(){
+        $this->middleware('auth');
         return view ('form');
     }
 
@@ -36,6 +38,8 @@ class PostController extends Controller
 
     }
     public function createComment(Request $request, $id){
+
+        $this->middleware('auth');
         //validation
         $request->validate([
             'content'=>'required'
@@ -51,12 +55,8 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
-       /* $post = new Post();
-        $post->title = $request->title;
-        $post->content = $request->get('content');
-        $post->save();
+        $this->middleware('auth');
 
-        return redirect()->route("posts.show",$post->id);*/
 
         //validation
         $request->validate([
@@ -68,20 +68,6 @@ class PostController extends Controller
             'title'=>$request->title,
             'content'=>$request->get('content')
         ]);
-    }
-
-    public function register(){
-        $post = Post::find(1);
-        $video = Video::findOrFail(1);
-
-        $comment1 = new Comment(['content'=> 'Mon premier commentaire']);
-        $comment2 = new Comment(['content'=> 'Mon deuxieme commentaire']);
-        $post->comments()->saveMany([
-            $comment1,
-            $comment2
-        ]);
-        $comment3 = new Comment(['content'=> 'Mon troisieme commentaire']);
-        $video->comments()->save($comment3);
     }
 }
 

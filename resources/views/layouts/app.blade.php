@@ -13,8 +13,7 @@
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
 
-        @include('partials.footer')
-
+    @include('partials.footer')
 
 </body>
 </html>
