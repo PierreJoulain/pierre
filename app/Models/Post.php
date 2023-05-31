@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Image;
-use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','content'];
+    protected $fillable = ['title','content','user_id'];
 
     /*public function comments()
     {
@@ -30,5 +31,7 @@ class Post extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class,'pivot_table_post_tag');
     }
-
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

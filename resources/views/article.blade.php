@@ -8,6 +8,7 @@
         interesse</label>
     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">{{$post->title}}</label>
     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">{{$post->content}}</label>
+    <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Crée {{$post->created_at->diffForHumans()}} par {{$post->user->name}}</label>
     <br><br><br>
 
 
@@ -56,13 +57,14 @@
             </div>
 
             @forelse($post->comments as $comment)
+
                 <article class="p-6 mb-6 text-base bg-white border-t border-gray-200">
                     <footer class="flex justify-between items-center mb-2">
                         <div class="flex items-center">
 
                             <p class="text-sm text-gray-600">
                                 <time pubdate datetime="2022-03-12"
-                                      title="March 12th, 2022">Crée le {{$comment->created_at->format('d/m/Y')}}</time>
+                                      title="March 12th, 2022">Crée le {{$comment->created_at->format('d/m/Y')}} par {{ $comment->user->name }}</time>
                             </p>
                         </div>
 

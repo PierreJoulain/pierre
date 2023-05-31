@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,6 +44,7 @@ class PostController extends Controller
         ]);
         $post = Post::findOrFail($id);
         $comment = new Comment();
+        $comment->user_id= Auth::user()->id;
         $comment->content = $request->get('content');
         $post->comments()->saveMany([
             $comment
@@ -54,9 +53,8 @@ class PostController extends Controller
         return redirect()->route("posts.show",$post->id);
     }
 
-    public function store(Request $request){
+    public function store(Request $request ){
         $this->middleware('auth');
-
 
         //validation
         $request->validate([
@@ -64,10 +62,27 @@ class PostController extends Controller
             'content'=>'required'
         ]);
 
-        Post::create([
+       $post = Post::create([
             'title'=>$request->title,
+            'user_id'=>Auth::user()->id,
             'content'=>$request->get('content')
         ]);
+
+        return redirect()->route("posts.show",$post->id);
+
     }
+
+   /* public function destroy($commentId)
+    {
+        $comment = Comment::find($commentId);
+
+        if ($comment->user_id === Auth::id()) {
+            $comment->delete();
+            echo ("Votre commentaire est supprimé");
+
+        }
+        else
+            echo ("vous n'etes pas autorisé a supprimé le commentaire des autres");
+    }*/
 }
 
