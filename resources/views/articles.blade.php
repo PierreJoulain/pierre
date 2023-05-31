@@ -4,11 +4,12 @@
 
 
 
-    @if ($posts->count())
+
         <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
             <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900">Mon Blog Dragon Ball</h2>
             <p class="font-light text-gray-500 sm:text-xl">Bienvenue sur mon blog, je m'appelle Piccolo le gros namek et  je suis la pour vous montrez mon blog.</p>
         </div>
+        @if ($posts->count())
         <div class="grid gap-8 lg:grid-cols-2 ">
             @foreach($posts as $post)
                 <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
@@ -19,7 +20,7 @@
                         <div class="flex items-center space-x-4">
                             <img class="w-7 h-7 rounded-full" src="https://image.jeuxvideo.com/medias-sm/150038/1500383584-9689-capture-d-ecran.jpg" alt="Pierre Joulain avatar" />
                             <span class="font-medium">
-                              Piccolo le gros namek
+                              {{$post->user->name }}
                           </span>
                         </div>
                         <a href="{{ route('posts.show',['id'=>$post->id]) }} " class="inline-flex items-center font-medium text-primary-600 hover:underline">
@@ -35,13 +36,7 @@
     @else
         <span>Aucun post en base de données</span>
     @endif
-    <h1>Liste des vidéos</h1>
-        @forelse($post->comments as $comment)
-            <div>{{$comment->content}} | crée le {{$comment->created_at->format('d/m/Y')}}</div>
-        @empty
-            <span>aucun com mgl</span>
-        @endforelse
-    <hr>
+
     <h1>Nombre de poste</h1>
     <h2>Le nombre de post est : {{count($posts)}}</h2>
 

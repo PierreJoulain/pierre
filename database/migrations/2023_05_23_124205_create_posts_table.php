@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->mediumText('content');
+            $table->string('user_id');
             $table->timestamps();
         });
     }
