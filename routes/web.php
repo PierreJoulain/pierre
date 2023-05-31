@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,25 +15,30 @@ use App\Http\Controllers\PostController;
 |
 */
 
-//Route::get('/',[\App\Http\Controllers\PostController::class,'index']);
 Route::get('/',[PostController::class, 'index'])->name('welcome');
-Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
-Route::post('/posts/create',[PostController::class, 'store'])->name('posts.store');
+
 Route::get('/login',[PostController::class, 'login'])->name('login');
 
-Route::post('posts/{id}/comment',[PostController::class, 'createComment'])->name('posts.comments.store');
+
 
 Route::get('/register',[PostController::class,'register']);
 
-Route::get('/posts/{id}',[PostController::class, 'show'])->name('posts.show');
+
 Route::get('/contact',[PostController::class, 'contact'])->name('contact');
 
-//Route::get('/posts', function (){
-//    return response()->json([
-//        'titre' => 'trèyuioi'
-//    ]);
-//} );
-//
-//Route::get('articles', function () {
-//    return view('articles');
-//});
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::post('posts/{id}/comment',[PostController::class, 'createComment'])->name('posts.comments.store');
+    Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts/create',[PostController::class, 'store'])->name('posts.store');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/posts/{id}',[PostController::class, 'show'])->name('posts.show');
+
+require __DIR__.'/auth.php';
