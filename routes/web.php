@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/comments/{id}',[PostController::class, 'destroyComment'])->name('comments.delete');
     Route::delete('/posts/{id}',[PostController::class, 'destroyPost'])->name('posts.delete');
     Route::patch('/posts/comments/{id}',[PostController::class, 'updateComment'])->name('comments.update');
-
+    Route::patch('/posts/{id}',[PostController::class, 'updatePost'])->name('posts.update');
 });
 
 Route::get('/posts/{id}',[PostController::class, 'show'])->name('posts.show');
