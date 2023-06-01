@@ -37,7 +37,6 @@ class PostController extends Controller
     }
     public function createComment(Request $request, $id){
 
-        $this->middleware('auth');
         //validation
         $request->validate([
             'content'=>'required'
@@ -91,6 +90,19 @@ class PostController extends Controller
             $post->delete();
         }
         return redirect()->route("welcome",$post->id);
+    }
+
+    public function updateComment(Request $request, $commentId){
+        $request->validate([
+            'content'=>'required']);
+        $comment = Comment::find($commentId);
+        $post = $comment->commentable;
+
+        if ($comment->user_id == Auth::id()) {
+            $comment->content = $request->get('content');
+            $comment->save();
+        }
+        return redirect()->route("posts.show",$post->id);
     }
 }
 
