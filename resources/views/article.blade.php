@@ -65,14 +65,23 @@
                             <p class="text-sm text-gray-600">
                                 <time pubdate datetime="2022-03-12"
                                       title="March 12th, 2022">Crée le {{$comment->created_at->format('d/m/Y')}} par {{ $comment->user->name }}</time>
+
                             </p>
+
                         </div>
+
 
                         <!-- Dropdown menu -->
 
                     </footer>
                     <p class="text-gray-500">{{$comment->content}}</p>
-
+                    <form method="POST" action="{{ route('comments.delete',$comment->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        @if($comment->user_id == Auth::id())
+                            <button class="text-sm py-2">Supprimer mon commentaire</button>
+                        @endif
+                    </form>
                 </article>
             @empty
 
