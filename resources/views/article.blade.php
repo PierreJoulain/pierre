@@ -3,7 +3,6 @@
 @section('content')
 
 
-
     <label for="about" class="block text-lg font-medium leading-6 text-gray-900">Voici le poste qui vous
         interesse</label>
     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">{{$post->title}}</label>
@@ -48,6 +47,7 @@
     </form>
 
     <br>
+
     <label for="about" class="text-center block text-lg font-medium leading-6 text-gray-900 py-16">Le nombre de
         commentaire est : {{count($post->comments)}}</label><br>
     <section class="bg-white py-8 lg:py-16">

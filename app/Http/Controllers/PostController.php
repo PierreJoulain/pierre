@@ -12,17 +12,14 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
-        return view('articles', [
-            'posts' => $posts
-        ]);
+        //$posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return view('articles', ['posts' => $posts]);
     }
 
     public function show($id){
         $post = Post::findOrFail($id);
-        return view('article', [
-            'post' => $post
-        ]);
+        return view('article', ['post' => $post]);
     }
 
     public function create(){
@@ -49,7 +46,7 @@ class PostController extends Controller
             $comment
         ]);
 
-        return redirect()->route("posts.show",$post->id);
+        return redirect()->route("posts.show",$post->id)->with('success','Votre commentaire a bien été créé');
     }
 
     public function store(Request $request ){
@@ -61,13 +58,14 @@ class PostController extends Controller
             'content'=>'required'
         ]);
 
+
        $post = Post::create([
             'title'=>$request->title,
             'user_id'=>Auth::user()->id,
             'content'=>$request->get('content')
         ]);
 
-        return redirect()->route("posts.show",$post->id);
+        return redirect()->route("posts.show",$post->id)->with('success','Votre post a bien été créé');
 
     }
 
@@ -102,7 +100,7 @@ class PostController extends Controller
             $comment->content = $request->get('content');
             $comment->save();
         }
-        return redirect()->route("posts.show",$post->id);
+        return redirect()->route("posts.show",$post->id)->with('success','Votre commentaire a bien été modifié');
     }
 
     public function updatePost(Request $request, $postId){
@@ -115,7 +113,9 @@ class PostController extends Controller
             $post->content = $request->get('content');
             $post->save();
         }
-        return redirect()->route("welcome",$post->id);
+        return redirect()->route("welcome",$post->id)->with('success','Votre post a bien été modifié');
     }
+
+
 }
 
