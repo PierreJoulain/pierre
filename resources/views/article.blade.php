@@ -61,13 +61,11 @@
                 <article class="p-6 mb-6 text-base bg-white border-t border-gray-200">
                     <footer class="flex justify-between items-center mb-2">
                         <div class="flex items-center">
-
                             <p class="text-sm text-gray-600">
                                 <time pubdate datetime="2022-03-12"
                                       title="March 12th, 2022">Crée le {{$comment->created_at->format('d/m/Y')}} par {{ $comment->user->name }}</time>
 
                             </p>
-
                         </div>
 
 
@@ -82,14 +80,36 @@
                             <button class="text-sm py-2">Supprimer mon commentaire</button>
                         @endif
                     </form>
+                    <button class="text-sm py-2 edit-comment-button" data-comment-id="{{$comment->id}}">Modifier</button>
+                    <form id="edit-comment-form-{{$comment->id}}" class="hidden" method="POST" action="{{ route('comments.update',$comment->id) }}">
+                        <textarea id="content" name="content" rows="3"
+                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                        @csrf
+                        @method('PATCH')
+                        @if($comment->user_id == Auth::id())
+                            <button type="submit" class="text-sm py-2">Sauver la modification</button>
+                        @endif
+                    </form>
                 </article>
             @empty
 
             @endforelse
 
+            <script>
+                var boutons = document.querySelectorAll('.edit-comment-button');
+                boutons.forEach(function(bouton) {
+                    bouton.addEventListener('click', function() {
+                        // Trouvez le formulaire d'édition correspondant en utilisant la classe 'edit-comment-form'
+                        var commentId = bouton.dataset.commentId;
+                        var form = document.getElementById("edit-comment-form-"+commentId)
+                        form.classList.remove("hidden");
+                        bouton.classList.add("hidden");
+                    });
+                });
+            </script>
+
             <label for="about" class="text-center block text-lg font-medium leading-6 text-gray-900">Le nombre de tag
                 est : {{count($post->tags)}}</label><br>
-
 
             <div class="text-center">
                 @foreach($post->tags as $tag)
