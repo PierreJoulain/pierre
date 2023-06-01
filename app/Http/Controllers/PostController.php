@@ -104,5 +104,18 @@ class PostController extends Controller
         }
         return redirect()->route("posts.show",$post->id);
     }
+
+    public function updatePost(Request $request, $postId){
+        $request->validate([
+            'content'=>'required']);
+        $post = Post::find($postId);
+
+
+        if ($post->user_id == Auth::id()) {
+            $post->content = $request->get('content');
+            $post->save();
+        }
+        return redirect()->route("welcome",$post->id);
+    }
 }
 
