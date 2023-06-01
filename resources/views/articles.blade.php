@@ -14,6 +14,13 @@
             @foreach($posts as $post)
                 <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
                     <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{$post->title }}</h2>
+                    <form method="POST" action="{{ route('posts.delete',$post->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        @if($post->user_id == Auth::id())
+                            <button class="text-sm py-2 ">Supprimer mon poste</button>
+                        @endif
+                    </form>
                         <span class="text-sm text-gray-500">{{$post->created_at->diffForHumans()}}</span>
                     <p class="mb-5 font-light text-gray-500">{{$post->content}}</p>
                     <div class="flex justify-between items-center">

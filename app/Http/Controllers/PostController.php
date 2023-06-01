@@ -72,17 +72,25 @@ class PostController extends Controller
 
     }
 
-   /* public function destroy($commentId)
+    public function destroyComment($commentId)
     {
         $comment = Comment::find($commentId);
 
-        if ($comment->user_id === Auth::id()) {
+        $post=$comment->commentable;
+        if ($comment->user_id == Auth::id()) {
             $comment->delete();
-            echo ("Votre commentaire est supprimé");
-
         }
-        else
-            echo ("vous n'etes pas autorisé a supprimé le commentaire des autres");
-    }*/
+        return redirect()->route("posts.show",$post->id);
+    }
+
+    public function destroyPost($postId)
+    {
+        $post = Post::find($postId);
+
+        if ($post->user_id == Auth::id()) {
+            $post->delete();
+        }
+        return redirect()->route("welcome",$post->id);
+    }
 }
 
