@@ -12,11 +12,25 @@
 
 
 
+    <button class="text-sm py-2 edit-post-button" data-post-id="{{$post->id}}">Modifier</button>
+    <form id="edit-post-form-{{$post->id}}" class="hidden" method="POST" action="{{ route('posts.update',$post->id) }}">
+                        <span>Titre</span>
+                        <textarea id="title" name="title" rows="1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$post->title}}</textarea>
+                        <span>Contenu</span>
+                        <textarea id="content" name="content" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$post->content}}</textarea>
+        @csrf
+        @method('PATCH')
+        @if($post->user_id == Auth::id())
+            <button type="submit" class="text-sm py-2">Sauver la modification</button>
+        @endif
+    </form>
+
     <form method="POST" action="{{route('posts.comments.store',$post->id)}}">
         @csrf
 
         @include('partials.errors')
         @if (Auth::check())
+
         <div class="space-y-12">
 
             <div class="border-b border-gray-900/10 pb-12">
@@ -84,7 +98,7 @@
                     <button class="text-sm py-2 edit-comment-button" data-comment-id="{{$comment->id}}">Modifier</button>
                     <form id="edit-comment-form-{{$comment->id}}" class="hidden" method="POST" action="{{ route('comments.update',$comment->id) }}">
                         <textarea id="content" name="content" rows="3"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$comment->content}}</textarea>
                         @csrf
                         @method('PATCH')
                         @if($comment->user_id == Auth::id())
@@ -103,6 +117,16 @@
                         // Trouvez le formulaire d'édition correspondant en utilisant la classe 'edit-comment-form'
                         var commentId = bouton.dataset.commentId;
                         var form = document.getElementById("edit-comment-form-"+commentId)
+                        form.classList.remove("hidden");
+                        bouton.classList.add("hidden");
+                    });
+                });
+                var postButtons = document.querySelectorAll('.edit-post-button');
+                postButtons.forEach(function(bouton) {
+                    bouton.addEventListener('click', function() {
+                        // Trouvez le formulaire d'édition correspondant en utilisant la classe 'edit-comment-form'
+                        var postId = bouton.dataset.postId;
+                        var form = document.getElementById("edit-post-form-"+postId)
                         form.classList.remove("hidden");
                         bouton.classList.add("hidden");
                     });
