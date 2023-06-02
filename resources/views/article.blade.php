@@ -18,6 +18,7 @@
         @include('partials.errors')
         @if (Auth::check())
         <div class="space-y-12">
+
             <div class="border-b border-gray-900/10 pb-12">
                 <p class="mt-1 text-sm leading-6 text-gray-600">Laissez donc un commentaire sur ce poste.</p>
 
@@ -56,7 +57,7 @@
                 <h2 class="text-lg lg:text-2xl font-bold text-gray-900"></h2>
             </div>
 
-            @forelse($post->comments as $comment)
+            @forelse($post->comments()->orderBy('created_at', 'desc')->get() as $comment)
 
                 <article class="p-6 mb-6 text-base bg-white border-t border-gray-200">
                     <footer class="flex justify-between items-center mb-2">
