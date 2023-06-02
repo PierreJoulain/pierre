@@ -34,6 +34,15 @@
                         <p class="mt-3 text-sm leading-6 text-gray-600">Ecrivez ce que souhaitez.</p>
                     </div>
 
+                    <label for="cars">Choisissez un tag:</label>
+
+                    <select name="tags" id="tag" multiple="true">
+                        @foreach($tags as $tag)
+                            <option class="bg-blue-200 text-blue-800 rounded text-xs py-1 px-2">{{$tag->name}}</option>
+                        @endforeach
+                    </select>
+                    <br><br>
+
 
 
 

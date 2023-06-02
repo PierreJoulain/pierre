@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,8 @@ class PostController extends Controller
 
     public function create(){
         $this->middleware('auth');
-        return view ('form');
+        $tags = Tag::all();
+        return view ('form', ['tags'=>$tags]);
     }
 
     public function contact()
@@ -56,15 +58,18 @@ class PostController extends Controller
         //validation
         $request->validate([
             'title'=>'required|max:255|min:5|unique:posts',
-            'content'=>'required'
+            'content'=>'required',
+            'tags'=>'required'
         ]);
 
 
        $post = Post::create([
             'title'=>$request->title,
             'user_id'=>Auth::user()->id,
-            'content'=>$request->get('content')
+            'content'=>$request->get('content'),
         ]);
+
+
 
         return redirect()->route("posts.show",$post->id)->with('success','Votre post a bien été créé');
 
