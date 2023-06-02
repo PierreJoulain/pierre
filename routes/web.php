@@ -32,6 +32,9 @@ Route::get('/contact',[PostController::class, 'contact'])->name('contact');
 
 Route::middleware('auth')->group(function () {
     Route::post('posts/{id}/comment',[PostController::class, 'createComment'])->name('posts.comments.store');
+
+
+
     Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
     Route::post('/posts/create',[PostController::class, 'store'])->name('posts.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
