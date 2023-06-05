@@ -14,14 +14,20 @@
 
     <button class="text-sm py-2 edit-post-button" data-post-id="{{$post->id}}">Modifier</button>
     <form id="edit-post-form-{{$post->id}}" class="hidden" method="POST" action="{{ route('posts.update',$post->id) }}">
-                        <span>Titre</span>
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-6">Titre</span>
                         <textarea id="title" name="title" rows="1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$post->title}}</textarea>
-                        <span>Contenu</span>
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-6">Contenu</span>
                         <textarea id="content" name="content" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{$post->content}}</textarea>
+        <label for="tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-6">Tag</label>
+        <select name="tags[]" id="tag" multiple="true" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            @foreach ($tags as $tag)
+                <option class="py-1 px-2" value="{{ $tag->id }}">{{$tag->name}}</option>
+            @endforeach
+        </select>
         @csrf
         @method('PATCH')
         @if($post->user_id == Auth::id())
-            <button type="submit" class="text-sm py-2">Sauver la modification</button>
+            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6 mb-4">Sauver la modification</button>
         @endif
     </form>
 
@@ -105,6 +111,9 @@
                             <button type="submit" class="text-sm py-2">Sauver la modification</button>
                         @endif
                     </form>
+
+
+
                 </article>
             @empty
 
@@ -131,6 +140,7 @@
                         bouton.classList.add("hidden");
                     });
                 });
+
             </script>
 
             <label for="about" class="text-center block text-lg font-medium leading-6 text-gray-900">Le nombre de tag
