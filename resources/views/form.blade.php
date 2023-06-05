@@ -34,11 +34,11 @@
                         <p class="mt-3 text-sm leading-6 text-gray-600">Ecrivez ce que souhaitez.</p>
                     </div>
 
-                    <label for="cars">Choisissez un tag:</label>
+                    <label for="cars" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choisissez un tag:</label>
 
-                    <select name="tags" id="tag" multiple="true">
+                    <select name="tags[]" id="tag" multiple="true" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         @foreach($tags as $tag)
-                            <option class="bg-blue-200 text-blue-800 rounded text-xs py-1 px-2">{{$tag->name}}</option>
+                            <option class="py-1 px-2" value="{{ $tag->id }}">{{$tag->name}}</option>
                         @endforeach
                     </select>
                     <br><br>

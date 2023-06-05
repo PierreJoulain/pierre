@@ -21,7 +21,8 @@ class PostController extends Controller
 
     public function show($id){
         $post = Post::findOrFail($id);
-        return view('article', ['post' => $post]);
+        $tags = Tag::all();
+        return view('article', ['post' => $post],['tags'=>$tags]);
     }
 
     public function create(){
@@ -67,9 +68,11 @@ class PostController extends Controller
             'title'=>$request->title,
             'user_id'=>Auth::user()->id,
             'content'=>$request->get('content'),
+
         ]);
 
-
+        $tags = $request->input('tags');
+        $post->tags()->attach($tags);
 
         return redirect()->route("posts.show",$post->id)->with('success','Votre post a bien été créé');
 
@@ -111,16 +114,22 @@ class PostController extends Controller
 
     public function updatePost(Request $request, $postId){
         $request->validate([
-            'content'=>'required']);
+            'title'=>'required',
+            'content'=>'required',
+            'tags'=>'required']);
         $post = Post::find($postId);
 
 
         if ($post->user_id == Auth::id()) {
+            $post->title = $request->get('title');
             $post->content = $request->get('content');
+            $tags = $request->input('tags');
+            $post->tags()->sync($tags);
             $post->save();
         }
         return redirect()->route("welcome",$post->id)->with('success','Votre post a bien été modifié');
     }
+
 
 
 }
