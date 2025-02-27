@@ -71,7 +71,7 @@
 
     <label for="about" class="text-center block text-lg font-medium leading-6 text-gray-900 py-16">Le nombre de
         commentaire est : {{count($post->comments)}}</label><br>
-    <section class="bg-white py-8 lg:py-16">
+    <section class="bg-white py-8 lg:py-16 bg-pink-50">
         <div class="max-w-2xl mx-auto px-4">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg lg:text-2xl font-bold text-gray-900"></h2>
