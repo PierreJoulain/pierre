@@ -25,6 +25,8 @@ Route::get('/register',[PostController::class,'register']);
 
 
 Route::get('/contact',[PostController::class, 'contact'])->name('contact');
+Route::get('/legals',[PostController::class, 'legals'])->name('legals');
+Route::get('/privacypolicy',[PostController::class, 'privacypolicy'])->name('privacypolicy');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

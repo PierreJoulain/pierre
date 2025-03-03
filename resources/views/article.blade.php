@@ -30,7 +30,13 @@
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6 mb-4">Sauver la modification</button>
         @endif
     </form>
-
+    <form method="POST" action="{{ route('posts.delete',$post->id) }}">
+        @csrf
+        @method('DELETE')
+        @if($post->user_id == Auth::id())
+            <button class="text-sm py-2 ">Supprimer mon poste</button>
+        @endif
+    </form>
     <form method="POST" action="{{route('posts.comments.store',$post->id)}}">
         @csrf
 
@@ -88,10 +94,6 @@
 
                             </p>
                         </div>
-
-
-                        <!-- Dropdown menu -->
-
                     </footer>
                     <p class="text-gray-500">{{$comment->content}}</p>
                     <form method="POST" action="{{ route('comments.delete',$comment->id) }}">

@@ -63,7 +63,7 @@
                     </div>
                     <label class="text-sm leading-6 text-gray-600" id="switch-1-label">
                         Cochez ce bouton si vous etes en accord avec notre
-                        <a href="#" class="font-semibold text-indigo-600">privacy&nbsp;policy</a>.
+                        <a href="{{route('privacypolicy')}}" class="font-semibold text-indigo-600">politique de confidentialité</a>.
                     </label>
                 </div>
             </div>

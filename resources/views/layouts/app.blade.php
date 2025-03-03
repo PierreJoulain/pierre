@@ -6,11 +6,9 @@
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
 <body class=" bg-pink-50">
-    <div class="px-4 mx-auto max-w-screen-xl lg:mb-16">
-    @include('partials.navbar')
-    @include('partials.flash-message')
-    @yield('content')
-    </div>
+        @include('partials.navbar')
+        @include('partials.flash-message')
+        @yield('content')
     <script src="{{ asset('js/app.js') }}"></script>
 
     @include('partials.footer')

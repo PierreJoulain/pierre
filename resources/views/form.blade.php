@@ -4,11 +4,6 @@
 
 <form method="POST" action="{{route('posts.store')}}">
     @csrf
-    {{-- <input type="text" name="title">
-    <textarea name="content" cols="30" rows="10"></textarea>
-    <button class="border" type="submit">Créer</button>--}}
-
-
     @include('partials.errors')
 
         <div class="space-y-12">
@@ -17,7 +12,7 @@
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-4">
-                        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nom du poste</label>
+                        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nom de la recette</label>
                         <div class="mt-2">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                 <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm"></span>
@@ -27,20 +22,24 @@
                     </div>
 
                     <div class="col-span-full">
-                        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Texte du poste</label>
+                        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Ecrivez votre recette.</label>
                         <div class="mt-2">
                             <textarea id="about" name="content" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                         </div>
-                        <p class="mt-3 text-sm leading-6 text-gray-600">Ecrivez ce que souhaitez.</p>
                     </div>
 
-                    <label for="cars" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choisissez un tag:</label>
-
-                    <select name="tags[]" id="tag" multiple="true" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700">Choisissez des tags :</label>
+                    <div class="grid grid-cols-3 gap-4 w-full">
                         @foreach($tags as $tag)
-                            <option class="py-1 px-2" value="{{ $tag->id }}">{{$tag->name}}</option>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <span class="text-sm font-medium text-gray-900">{{ $tag->name }}</span>
+                            </label>
                         @endforeach
-                    </select>
+                    </div>
+
+
                     <br><br>
 
 

@@ -36,6 +36,18 @@ class PostController extends Controller
         return view('contact');
 
     }
+
+    public function legals()
+    {
+        return view('legals');
+
+    }
+
+    public function privacypolicy()
+    {
+        return view('privacypolicy');
+
+    }
     public function createComment(Request $request, $id){
 
         //validation
